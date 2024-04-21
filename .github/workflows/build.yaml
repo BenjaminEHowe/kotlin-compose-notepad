@@ -1,0 +1,21 @@
+name: Build on Windows
+on: push
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Run `packageReleaseDistributionForCurrentOS`
+        run: ./gradlew packageReleaseDistributionForCurrentOS
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kotlin-compose-notepad-msi
+          # TODO: update path to remove hard-coded version
+          path: build/compose/binaries/main-release/msi/kotlin-compose-notepad-1.0.0.msi
