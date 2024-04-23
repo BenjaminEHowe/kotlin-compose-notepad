@@ -24,6 +24,11 @@ compose.desktop {
     application {
         mainClass = "MainKt"
 
+        // remove the below once https://github.com/JetBrains/compose-multiplatform/issues/3818 has been resolved
+        buildTypes.release.proguard {
+            version.set("7.4.0")
+        }
+
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kotlin-compose-notepad"
